@@ -57,8 +57,8 @@ public class ExpressionParser implements InputParser<ExpressionStore, char[]> {
                 if (i + 1 < expression.length &&
                         isOperand.test(expression[i+1]) &&
                         String.valueOf(expression[i]).equals(Operators.OPENING_BRACKET.operation)) {
-                    operatorsStore.addToStore(currentCharToStr);
-                    buffer.insert(0, expression[i+1]);
+
+                    handleSignedOperand(expression[i + 1], buffer);
                     i += 2;
                     continue;
                 }
@@ -79,6 +79,15 @@ public class ExpressionParser implements InputParser<ExpressionStore, char[]> {
 
         extractRestOfOperatorsFromOperatorToOutputStore(outputStore, operatorsStore, isBracket);
         return outputStore;
+    }
+
+    private void handleSignedOperand(char c, StringBuilder buffer) {
+        int count = 0;
+        buffer.insert(0, c);
+        for (int j=0; j<buffer.toString().length(); ++j) {
+            if (buffer.charAt(j) == c) count++;
+        }
+        if (count % 2 == 0) buffer.delete(0, 1);
     }
 
 

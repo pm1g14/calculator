@@ -28,6 +28,7 @@ class CalculatorApplicationTests extends CalculatorApplication{
 
         char[] input5 = {'(','6', '+','6', ')', '/', '(', '4', '*', '3', ')'};
         Assertions.assertEquals("1", parseAndCalculate(input5));
+
     }
 
     @Test
